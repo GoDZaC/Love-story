@@ -2,13 +2,449 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Love Story ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff1f6">
+<title>Our Little Universe ♡</title>
+<style>
+:root {
+  --pink:#ed9fbd;
+  --deep:#bd6288;
+  --bg:#fff6f9;
+  --ink:#684356;
+  --muted:#a58b99;
+  --line:#f0dce5;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at 10% 10%,#ffe1ed,transparent 40%),
+    radial-gradient(ellipse at 90% 60%,#eee4ff,transparent 40%),
+    var(--bg);
+  font-family:system-ui,-apple-system,sans-serif;
+}
+button,input { font:inherit; }
+button { cursor:pointer; }
+.wrap { width:min(1000px,calc(100% - 32px)); margin:auto; }
+header {
+  position:sticky;top:8px;z-index:5;
+  width:min(1000px,calc(100% - 20px));
+  margin:10px auto;padding:12px 18px;
+  display:flex;justify-content:space-between;align-items:center;
+  border:1px solid white;border-radius:30px;
+  background:#ffffffdf;backdrop-filter:blur(12px);
+  box-shadow:0 5px 25px #9e597a15;
+}
+.brand { font-size:13px;font-weight:bold; }
+.brand span { color:var(--deep); }
+button {
+  padding:12px 18px;border-radius:30px;
+  border:0;background:linear-gradient(135deg,#eea4c0,#c96e98);
+  color:white;font-weight:bold;
+}
+.secondary { background:white;color:var(--deep);border:1px solid var(--line); }
+.hero {
+  min-height:600px;padding-top:65px;padding-bottom:65px;
+  display:grid;grid-template-columns:1fr .85fr;gap:40px;align-items:center;
+}
+.eyebrow { color:var(--deep);font-size:11px;letter-spacing:2px; }
+h1,h2,h3 { font-family:Georgia,"Times New Roman",serif;font-weight:500; }
+h1 { font-size:clamp(48px,7vw,78px);line-height:1.05;margin:20px 0; }
+h1 em { color:var(--deep); }
+p { color:var(--muted);font-size:14px;line-height:2; }
+.actions { display:flex;flex-wrap:wrap;gap:10px;margin-top:22px; }
+.photo {
+  position:relative;background:white;padding:10px 10px 45px;
+  box-shadow:0 20px 55px #965c7925;transform:rotate(3deg);
+}
+.photo img { width:100%;height:390px;display:block;object-fit:cover;background:#f7e1eb; }
+.caption { text-align:center;font:italic 20px Georgia,serif;color:var(--deep);padding-top:12px; }
+.sticker { position:absolute;font-size:32px; }
+.sticker.one { right:-18px;top:15px; }
+.sticker.two { left:-20px;bottom:45px; }
+.section { padding:65px 0; }
+.heading { text-align:center;margin:0 auto 30px;max-width:600px; }
+.heading h2 { font-size:clamp(30px,5vw,44px);margin:14px 0; }
+.pill { display:inline-block;background:white;border:1px solid var(--line);border-radius:30px;padding:8px 15px;color:var(--deep);font-size:11px; }
+.card {
+  max-width:750px;margin:auto;padding:clamp(22px,5vw,45px);
+  border:1px solid white;border-radius:24px;
+  background:linear-gradient(140deg,#fff,#fff0f6);
+  box-shadow:0 15px 45px #a2608015;
+}
+.hidden { display:none; }
+.hidden.open { display:block;animation:fade .5s ease; }
+@keyframes fade { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none} }
+.stats { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px; }
+.stat { padding:20px 5px;text-align:center;background:#ffffffd9;border:1px solid white;border-radius:16px; }
+.num { color:var(--deep);font:36px Georgia,serif;overflow-wrap:anywhere;margin:12px 0; }
+.label { font-size:11px;color:var(--muted); }
+.gallery { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px; }
+.memory { padding:9px 9px 15px;background:white;box-shadow:0 10px 30px #965c7918;cursor:pointer; }
+.memory:nth-child(1) { transform:rotate(-2deg); }
+.memory:nth-child(2) { transform:translateY(10px) rotate(2deg); }
+.memory img { width:100%;height:250px;object-fit:cover;display:block;background:#f7e1eb; }
+.memory h3 { text-align:center;font-size:17px;margin:12px 0 5px; }
+.memory p { text-align:center;font-size:11px;margin:0; }
+.promises { display:grid;gap:10px; }
+.promise { display:flex;gap:12px;align-items:flex-start;padding:13px;background:white;border:1px solid var(--line);border-radius:12px;font-size:13px;line-height:1.8; }
+.promise input { accent-color:var(--deep);width:18px;height:18px;flex-shrink:0;margin-top:3px; }
+.signrow { display:flex;gap:10px;margin-top:20px;flex-wrap:wrap; }
+.signrow input { flex:1;min-width:0;padding:13px 16px;border:1px solid var(--line);border-radius:30px;background:white;color:var(--ink); }
+.certificate { display:none;text-align:center;padding-top:25px; }
+.certificate.show { display:block;animation:fade .5s ease; }
+.seal { font-size:42px; }
+.finalcard { text-align:center;padding:55px 20px;border:1px solid white;border-radius:28px;background:linear-gradient(135deg,#ffe4ef,#f3eaff); }
+.finalcard h2 { color:#a34f77;font-size:clamp(32px,6vw,50px); }
+.bigheart { font-size:65px;animation:heartbeat 1.7s infinite; }
+@keyframes heartbeat { 50%{transform:scale(1.15)} }
+footer { text-align:center;padding:20px;color:var(--muted);font-size:11px; }
+#petals { position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:8; }
+.petal { position:absolute;top:-30px;animation:fall var(--dur) linear var(--delay) infinite;left:var(--x); }
+@keyframes fall { to{transform:translate(var(--drift),110vh) rotate(400deg);opacity:0} }
+.modal { position:fixed;inset:0;background:#55364cbb;z-index:20;display:none;align-items:center;justify-content:center;padding:20px; }
+.modal.show { display:flex; }
+.modalbox { width:min(450px,100%);padding:12px;background:white;border-radius:18px; }
+.modalbox img { width:100%;max-height:70vh;object-fit:contain; }
+.close { float:right;margin-bottom:10px; }
+#toast { position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:30;background:#684356;color:white;padding:12px 20px;border-radius:30px;display:none;font-size:12px;max-width:90%; }
+@media(max-width:650px) {
+  .hero { grid-template-columns:1fr;text-align:center;gap:40px;padding-top:45px; }
+  .hero .actions { justify-content:center; }
+  .photo { max-width:370px;margin:auto; }
+  .photo img { height:340px; }
+  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .gallery { gap:9px; }
+  .memory { padding:6px 6px 12px; }
+  .memory img { height:150px; }
+  .memory h3 { font-size:13px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation:none!important;scroll-behavior:auto!important; }
+}
+</style>
 </head>
 <body>
-  <h1>Our Love Story ❤️</h1>
-  <p>ยินดีต้อนรับสู่เรื่องราวความรักของเรา</p>
+<div id="petals"></div>
+<header>
+  <div class="brand">♡ <span>OUR LITTLE UNIVERSE</span></div>
+  <button class="secondary" id="petalBtn">✿ ดอกไม้</button>
+</header>
+<main>
+<section class="hero wrap">
+  <div>
+    <div class="eyebrow">✦ A LITTLE WEBSITE, A LOT OF LOVE ✦</div>
+    <h1>A little<br>universe<br><em>for you.</em></h1>
+    <p>ในจักรวาลที่กว้างใหญ่ขนาดนี้<br>เราดีใจนะที่ได้พบเธอ<br>และอยากให้พื้นที่เล็ก ๆ แห่งนี้<br>เป็นที่ที่เธอกลับมายิ้มได้เสมอ ♡</p>
+    <div class="actions">
+      <button id="openLetter">เปิดจดหมายของเรา ♡</button>
+      <button class="secondary" id="toMemories">ดูความทรงจำ ✿</button>
+    </div>
+  </div>
+  <div class="photo">
+    <img src="images/couple-1.jpg" alt="รูปคู่ของเรา">
+    <div class="caption">my favorite person ♡</div>
+    <span class="sticker one">♡</span><span class="sticker two">✧</span>
+  </div>
+</section>
+
+<section class="section" id="letter">
+  <div class="wrap">
+    <div class="heading"><span class="pill">💌 A LETTER FOR YOU</span><h2>Words from my heart</h2><p>มีบางอย่างที่อยากบอกเธอ ไม่ใช่เพราะวันนี้เป็นวันพิเศษเท่านั้น แต่เพราะเธอเป็นคนพิเศษในทุก ๆ วัน</p></div>
+    <article class="card">
+      <div class="eyebrow">TO MY FAVORITE HUMAN</div>
+      <h2>ถึงเธอคนเก่งของเรา ♡</h2>
+      <div id="letterText" class="hidden">
+        <p>ขอบคุณนะที่เข้ามาเป็นส่วนหนึ่งในชีวิตเรา
+
+ขอบคุณสำหรับรอยยิ้ม เสียงหัวเราะ วันที่ดี และแม้แต่วันที่เหนื่อยล้า
+
+เราอาจไม่ได้เป็นคนที่เก่งเรื่องคำพูดที่สุด แต่เราอยากให้เธอรู้ว่า ทุกช่วงเวลาที่มีเธออยู่ด้วยมีความหมายกับเรามากจริง ๆ
+
+เราอยากเรียนรู้จักเธอให้มากขึ้น อยากเติบโตไปด้วยกัน และอยากสร้างความทรงจำเล็ก ๆ ที่วันหนึ่งเราจะหันกลับมายิ้มให้มันได้อีกครั้ง
+
+วันนี้เราดีใจที่มีเธออยู่ตรงนี้นะ ♡</p>
+        <div class="caption">with all my love, always.</div>
+      </div>
+      <button id="revealLetter">ค่อย ๆ เปิดจดหมาย ♡</button>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="time">
+  <div class="wrap">
+    <div class="heading"><span class="pill">⏳ OUR LITTLE TIMELINE</span><h2>Every second with you</h2><p>เวลาที่ผ่านไปอาจกลายเป็นตัวเลข แต่สำหรับเรา มันคือเรื่องราวที่มีเธออยู่ในนั้น</p></div>
+    <div class="stats">
+      <div class="stat"><div>🌷</div><div class="num" id="days">—</div><div class="label">วันที่เราอยู่ด้วยกัน</div></div>
+      <div class="stat"><div>☁️</div><div class="num" id="hours">—</div><div class="label">ชั่วโมงแห่งความทรงจำ</div></div>
+      <div class="stat"><div>💗</div><div class="num" id="minutes">—</div><div class="label">นาทีที่ผ่านมาด้วยกัน</div></div>
+      <div class="stat"><div>🎂</div><div class="num" id="anniversary">—</div><div class="label">วันถึงครบรอบถัดไป</div></div>
+    </div>
+    <p id="timeCaption" style="text-align:center">ทุกวันมีความหมายเมื่อมีเธอ ♡</p>
+  </div>
+</section>
+
+<section class="section" id="memories">
+  <div class="wrap">
+    <div class="heading"><span class="pill">📷 LITTLE MOMENTS, BIG LOVE</span><h2>Our favorite memories</h2><p>บางรูปอาจเป็นแค่ภาพถ่ายสำหรับคนอื่น แต่สำหรับเรา มันคือความรู้สึกที่อยากเก็บไว้</p></div>
+    <div class="gallery">
+      <article class="memory" tabindex="0" data-img="images/couple-1.jpg" data-title="The day I found you ♡"><img src="images/couple-1.jpg" alt="รูปความทรงจำหนึ่ง"><h3>The day I found you</h3><p>my favorite beginning ♡</p></article>
+      <article class="memory" tabindex="0" data-img="images/couple-2.jpg" data-title="Anywhere with you ✿"><img src="images/couple-2.jpg" alt="รูปความทรงจำสอง"><h3>Anywhere with you</h3><p>everywhere feels like home</p></article>
+      <article class="memory" tabindex="0" data-img="images/couple-3.jpg" data-title="My always person ♡"><img src="images/couple-3.jpg" alt="รูปความทรงจำสาม"><h3>My always person</h3><p>and all the days after</p></article>
+    </div>
+    <p style="text-align:center">แตะรูปเพื่อเปิดดูแบบเต็มจอ ♡</p>
+  </div>
+</section>
+
+<section class="section" id="promise">
+  <div class="wrap">
+    <div class="card">
+      <div class="heading"><span class="pill">💍 OUR LITTLE PROMISE</span><h2>Not perfect, just us.</h2><p>เราไม่จำเป็นต้องเป็นคู่รักที่สมบูรณ์แบบ แค่คอยดูแลกันและเติบโตไปด้วยกันก็พอแล้ว</p></div>
+      <div id="promises">
+        <label class="promise"><input type="checkbox"><span>เราจะรับฟังกัน แม้ในวันที่เราคิดไม่เหมือนกัน</span></label>
+        <label class="promise"><input type="checkbox"><span>เราจะขอโทษเมื่อทำผิด และให้เวลากันเมื่อยังไม่พร้อม</span></label>
+        <label class="promise"><input type="checkbox"><span>เราจะหาเวลาเล็ก ๆ ให้กัน แม้วันที่ชีวิตจะยุ่งมาก</span></label>
+        <label class="promise"><input type="checkbox"><span>เราจะเคารพความรู้สึกและพื้นที่ส่วนตัวของกันและกัน</span></label>
+        <label class="promise"><input type="checkbox"><span>เราจะไม่ลืมขอบคุณกันสำหรับสิ่งเล็ก ๆ ในทุกวัน</span></label>
+      </div>
+      <div class="signrow" id="signRow">
+        <input id="signName" maxlength="60" placeholder="ชื่อเล่นของเธอ ♡">
+        <button id="signBtn" disabled>ประทับตราหัวใจ ♡</button>
+      </div>
+      <div class="certificate" id="certificate">
+        <div class="seal">💗</div><h2>Our promise, kept with love.</h2>
+        <p id="signedMessage"></p>
+        <button class="secondary" id="resetSign">เขียนคำสัญญาใหม่</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="surprise">
+  <div class="wrap">
+    <div class="finalcard">
+      <div class="bigheart">💗</div>
+      <div class="eyebrow">ONE LAST LITTLE SURPRISE</div>
+      <h2>One more thing...</h2>
+      <p>มีของขวัญอีกชิ้นที่ซ่อนอยู่ตรงนี้<br>พร้อมเปิดมันหรือยัง คนเก่งของเรา?</p>
+      <button id="surpriseBtn">เปิดของขวัญชิ้นสุดท้าย 🎁</button>
+      <div id="surpriseMessage" class="hidden">
+        <h2>ถ้าเลือกได้อีกกี่ครั้ง เราก็ยังอยากพบเธอ ♡</h2>
+        <p>ขอบคุณที่เป็นเธอ ขอบคุณที่ทำให้วันธรรมดามีความหมาย
+
+เราไม่รู้ว่าอนาคตจะพาเราไปเจออะไรบ้าง แต่วันนี้เรายังอยากจับมือเธอ เดินไปทีละวัน และสร้างความทรงจำดี ๆ ด้วยกันต่อไป
+
+สุขสันต์วันครบรอบนะ ขอให้เราเป็นรอยยิ้มเล็ก ๆ ของกันและกันไปนาน ๆ เลยนะ 💗</p>
+        <div class="caption" id="finalSign">yours, today and always.</div>
+        <button class="secondary" id="againBtn">ส่งหัวใจอีกครั้ง ♡</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>HANDCRAFTED WITH ♡ · FOR MY FAVORITE PERSON · FOREVER IN PROGRESS</footer>
+
+<div class="modal" id="modal">
+  <div class="modalbox"><button class="secondary close" id="closeModal">ปิด ✕</button><img id="modalImg" src="" alt="รูปความทรงจำ"><p id="modalCaption" class="caption"></p></div>
+</div>
+<div id="toast" role="status"></div>
+<div id="confetti"></div>
+<script>
+{
+"use strict";
+
+/* ===== แก้ข้อมูลตรงนี้ ===== */
+const CONFIG = {
+  startDate: "2024-01-01",
+  partnerName: "คนเก่งของเรา",
+  yourName: "คนที่รักเธอ"
+};
+/* ========================== */
+
+const $ = id => document.getElementById(id);
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let audio = null, toastTimer;
+
+function read(k,f){
+  try{const v=localStorage.getItem(k);return v===null?f:v}
+  catch(e){return f}
+}
+function save(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function fmt(n){return Math.max(0,n).toLocaleString("th-TH")}
+function dateOf(s){
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(s||""))return null;
+  const [y,m,d]=s.split("-").map(Number),v=new Date(y,m-1,d);
+  return v.getFullYear()===y&&v.getMonth()===m-1&&v.getDate()===d?v:null;
+}
+function toast(s){
+  $("toast").textContent=s;
+  $("toast").style.display="block";
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>$("toast").style.display="none",2500);
+}
+
+/* กลีบดอกไม้ */
+let petalsOn=true;
+function petals(){
+  const root=$("petals");root.replaceChildren();
+  if(!petalsOn||reduced)return;
+  const symbols=["🌸","✿","❀","♡","✧"];
+  for(let n=0;n<18;n++){
+    const e=document.createElement("span");
+    e.className="petal";e.textContent=symbols[n%symbols.length];
+    e.style.setProperty("--x",Math.random()*100+"%");
+    e.style.setProperty("--dur",10+Math.random()*12+"s");
+    e.style.setProperty("--delay",-Math.random()*18+"s");
+    e.style.setProperty("--drift",(Math.random()-.5)*160+"px");
+    e.style.fontSize=(12+Math.random()*12)+"px";
+    root.appendChild(e);
+  }
+}
+$("petalBtn").addEventListener("click",()=>{
+  petalsOn=!petalsOn;petals();
+  toast(petalsOn?"ดอกไม้กลับมาแล้ว 🌸":"พักดอกไม้ไว้ก่อน ♡");
+});
+
+/* จดหมาย */
+function toggleLetter(){
+  const opened=$("letterText").classList.toggle("open");
+  $("revealLetter").textContent=opened?"ปิดจดหมาย ♡":"ค่อย ๆ เปิดจดหมาย ♡";
+}
+$("revealLetter").addEventListener("click",toggleLetter);
+$("openLetter").addEventListener("click",()=>{
+  $("letter").scrollIntoView({behavior:reduced?"auto":"smooth"});
+  if(!$("letterText").classList.contains("open"))toggleLetter();
+});
+$("toMemories").addEventListener("click",()=>$("memories").scrollIntoView({behavior:reduced?"auto":"smooth"}));
+
+/* ตัวนับวัน */
+function updateTime(){
+  const start=dateOf(CONFIG.startDate);
+  if(!start){$("timeCaption").textContent="ตรวจสอบวันที่ใน CONFIG อีกครั้ง";return}
+  const now=new Date(),diff=now-start;
+  if(diff<0){
+    ["days","hours","minutes","anniversary"].forEach(id=>$(id).textContent="0");
+    $("timeCaption").textContent="รอวันที่เรื่องราวของเราเริ่มต้น 💗";return;
+  }
+  $("days").textContent=fmt(Math.floor(diff/86400000));
+  $("hours").textContent=fmt(Math.floor(diff/3600000));
+  $("minutes").textContent=fmt(Math.floor(diff/60000));
+  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  let next=new Date(now.getFullYear(),start.getMonth(),start.getDate());
+  if(next<today)next=new Date(now.getFullYear()+1,start.getMonth(),start.getDate());
+  $("anniversary").textContent=fmt(Math.ceil((next-today)/86400000));
+  let y=now.getFullYear()-start.getFullYear();
+  let m=now.getMonth()-start.getMonth(),d=now.getDate()-start.getDate();
+  if(d<0){m--;d+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}
+  if(m<0){y--;m+=12}
+  $("timeCaption").textContent="เราเดินทางด้วยกันมาแล้ว "+y+" ปี "+m+" เดือน "+d+" วัน และยังมีวันดี ๆ รออยู่อีกมากมาย ♡";
+}
+
+/* รูปภาพ */
+function openPhoto(card){
+  $("modalImg").src=card.dataset.img;
+  $("modalCaption").textContent=card.dataset.title;
+  $("modal").classList.add("show");
+}
+function closePhoto(){
+  $("modal").classList.remove("show");
+  $("modalImg").src="";
+}
+document.querySelectorAll(".memory").forEach(card=>{
+  card.addEventListener("click",()=>openPhoto(card));
+  card.addEventListener("keydown",e=>{
+    if(e.key==="Enter"||e.key===" "){e.preventDefault();openPhoto(card)}
+  });
+});
+$("closeModal").addEventListener("click",closePhoto);
+$("modal").addEventListener("click",e=>{if(e.target===$("modal"))closePhoto()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closePhoto()});
+
+/* คำสัญญา */
+const checks=[...document.querySelectorAll("#promises input")];
+function checkSign(){
+  $("signBtn").disabled=!(checks.every(c=>c.checked)&&$("signName").value.trim());
+}
+checks.forEach(c=>c.addEventListener("change",checkSign));
+$("signName").addEventListener("input",checkSign);
+
+function celebrate(){
+  if(reduced)return;
+  const root=$("confetti"),colors=["#ed9fbd","#f6c5d5","#b7a2e6","#fff0f6"];
+  for(let n=0;n<55;n++){
+    const e=document.createElement("span");
+    e.style.cssText="position:fixed;top:-20px;width:9px;height:13px;z-index:25;animation:fall 3s linear forwards";
+    e.style.left=Math.random()*100+"%";
+    e.style.background=colors[n%colors.length];
+    e.style.setProperty("--dur","3s");
+    e.style.setProperty("--delay","0s");
+    e.style.setProperty("--drift",(Math.random()-.5)*250+"px");
+    root.appendChild(e);setTimeout(()=>e.remove(),3200);
+  }
+}
+$("signBtn").addEventListener("click",()=>{
+  if($("signBtn").disabled)return;
+  const name=$("signName").value.trim();
+  $("signedMessage").textContent="คำสัญญาของเราได้รับการบันทึกด้วยความรักแล้วนะ, "+name+" ♡";
+  $("certificate").classList.add("show");
+  $("signRow").style.display="none";$("promises").style.display="none";
+  save("love.signed",name);celebrate();toast("ประทับตราหัวใจเรียบร้อยแล้ว 💗");
+});
+$("resetSign").addEventListener("click",()=>{
+  $("certificate").classList.remove("show");
+  $("signRow").style.display="flex";$("promises").style.display="grid";
+  $("signName").value="";checks.forEach(c=>c.checked=false);
+  checkSign();save("love.signed","");
+});
+
+/* ทำนองดนตรีสร้างด้วยเบราว์เซอร์ */
+function playMelody(){
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC){toast("เบราว์เซอร์ไม่รองรับเสียง");return}
+  try{
+    if(!audio)audio=new AC();
+    if(audio.state==="suspended")audio.resume();
+    const notes=[523.25,659.25,783.99,659.25,698.46,880,783.99,659.25];
+    const begin=audio.currentTime+.05;
+    notes.forEach((freq,i)=>{
+      const osc=audio.createOscillator(),gain=audio.createGain(),t=begin+i*.32;
+      osc.type="sine";osc.frequency.value=freq;
+      gain.gain.setValueAtTime(.0001,t);
+      gain.gain.exponentialRampToValueAtTime(.06,t+.03);
+      gain.gain.exponentialRampToValueAtTime(.0001,t+.28);
+      osc.connect(gain);gain.connect(audio.destination);
+      osc.start(t);osc.stop(t+.3);
+    });
+  }catch(e){toast("เล่นเสียงไม่สำเร็จ")}
+}
+
+/* เซอร์ไพรส์ */
+$("surpriseBtn").addEventListener("click",()=>{
+  $("surpriseMessage").classList.add("open");
+  $("surpriseBtn").style.display="none";
+  celebrate();toast("ของขวัญชิ้นเล็ก ๆ จากหัวใจ 💗");
+});
+$("againBtn").addEventListener("click",()=>{
+  celebrate();toast("ส่งหัวใจให้อีกครั้งแล้ว ♡");
+});
+
+/* เริ่มต้น */
+function init(){
+  petals();updateTime();setInterval(updateTime,1000);
+  $("finalSign").textContent=CONFIG.yourName+" · yours, today and always.";
+  $("signName").placeholder="ชื่อเล่นของ "+CONFIG.partnerName+" ♡";
+  const saved=read("love.signed","");
+  if(saved){
+    $("signedMessage").textContent="คำสัญญาของเราได้รับการบันทึกด้วยความรักแล้วนะ, "+saved+" ♡";
+    $("certificate").classList.add("show");
+    $("signRow").style.display="none";$("promises").style.display="none";
+  }
+}
+try{init()}catch(e){console.error(e)}
+})();
+</script>
 </body>
 </html>
-
